@@ -15,7 +15,8 @@ jobs:
           echo "$MY_ENV_VAR" 
   call-reusable-workflow:
     uses: cert-labs-hq/automations-repo/.github/workflows/reusable-workflow.yml@v1
-    secrets: inherit
+    secrets:
+      TOP_SECRET: "${{ secrets.TOP_SECRET }}"
     with:
       ref_name: ${{ github.ref_name }} #This can't be a environment variable because is not evaluated yet when 
       # it passes to the external workflow
