@@ -1,0 +1,24 @@
+name: Use workflow
+on: [workflow_dispatch] # workflow_dispatch allows manual triggers in the UI
+
+env:
+  MY_GLOBAL_ENV_VAR: ${{github.repositoryUrl}}
+  DAY_OF_WEEK: Monday
+  MY_ENV_VAR: ${{github.ref}}
+
+jobs:
+  debug-env:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: debug env
+        run: |
+          echo "$MY_ENV_VAR" 
+  call-reusable-workflow:
+    uses: cert-labs-hq/test-repo/.github/workflows/reusable-workflow.yml@V1
+    secrets: inherit
+    with:
+      ref_name: ${{ github.ref_name }} #This can't be a environment variable because is not evaluated yet when 
+      # it passes to the external workflow
+      # Also using ${{github.env.xyz}} won't work. GitHub evaluates the jobs.<job_id>.uses and with blocks before the job is even sent to a runner.
+      # Because env variables can be set at the step level or changed during runtime, GitHub considers them "unstable" at the moment it’s trying to figure out which workflow to call.
+      # This can work (repo variables) -> ref_name: ${{ vars.MY_REF_NAME }} # ✅ This works!
