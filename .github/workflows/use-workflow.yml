@@ -14,7 +14,7 @@ jobs:
         run: |
           echo "$MY_ENV_VAR" 
   call-reusable-workflow:
-    uses: cert-labs-hq/test-repo/.github/workflows/reusable-workflow.yml@5a449bf2ce2654e1dbd36f9463403a3c41a71cf5
+    uses: cert-labs-hq/automations-repo/.github/workflows/reusable-workflow.yml@V1
     secrets: inherit
     with:
       ref_name: ${{ github.ref_name }} #This can't be a environment variable because is not evaluated yet when 
