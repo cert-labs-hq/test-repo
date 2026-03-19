@@ -1,0 +1,13 @@
+name: Production Deployment to Mac Mini
+on:
+  workflow_dispatch: # Allows you to trigger it manually from the UI
+
+jobs:
+  deploy:
+    name: Deploy to Home Lab
+    runs-on: ubuntu-latest
+    environment: production # 👈 This triggers the "Gate" you just built!
+    
+    steps:
+      - name: Simple Hello World
+        run: echo "Deployment to Mac Mini authorized and running!"
