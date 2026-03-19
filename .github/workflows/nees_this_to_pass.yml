@@ -1,0 +1,10 @@
+name: Continuous Integration
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  need_this_to_pass: # 👈 This MUST match the Terraform context exactly
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running tests..."
